@@ -29,7 +29,7 @@ public class HikvisionMain {
                 // 1. Check the event type (lCommand)
                 PlatesGetter platesGetter = new PlatesGetter(plate -> {
                     System.out.println("plate = " + plate);//todo: save to db
-                    plate.setPlateNumber("22F48431");
+//                    plate.setPlateNumber("22F48431");
                     //check if has reservation
                     rampService.checkReservation(plate.getPlateNumber(), (result, error) -> {
                         if (error != null) {
@@ -39,9 +39,9 @@ public class HikvisionMain {
                                     System.out.println("error1 = " + error1);
                                     rampService.enterBexy(result1, (result2, error2) -> {
                                         System.out.println("result2 = " + result2);
-                                        rampService.enterWaitingYard(result1, (result3, error3) -> {
-                                            System.out.println("result3 = " + result3);
-                                        });
+//                                        rampService.enterWaitingYard(result1, (result3, error3) -> {
+//                                            System.out.println("result3 = " + result3);
+//                                        });
                                     });
                                 } else {
                                     System.out.println("error = " + error1);
@@ -51,24 +51,24 @@ public class HikvisionMain {
                             System.out.println("result = " + result);
                             rampService.enterBexy(result, (result1, error1) -> {
                                 System.out.println("result1 = " + result1);
-                                rampService.enterWaitingYard(result, (result2, error2) -> {
-                                    System.out.println("result2 = " + result2);
-                                    try {
-                                        URL url = new URL(RampService.baseUrl + "Reservations/QrCode/Truck/" + result);
-                                        BufferedImage image = ImageIO.read(url);
+                                try {
+                                    URL url = new URL(RampService.baseUrl + "Reservations/QrCode/Truck/" + result);
+                                    BufferedImage image = ImageIO.read(url);
 
-                                        // Print the image
-                                        PrinterJob job = PrinterJob.getPrinterJob();
-                                        job.setPrintable(new ImagePrintable(image));
-                                        job.print();
+                                    // Print the image
+                                    PrinterJob job = PrinterJob.getPrinterJob();
+                                    job.setPrintable(new ImagePrintable(image));
+                                    job.print();
 
 //                                        if (job.printDialog()) {
 //                                            job.print();
 //                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                });
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+//                                rampService.enterWaitingYard(result, (result2, error2) -> {
+//                                    System.out.println("result2 = " + result2);
+//                                });
                             });
                         }
                     });

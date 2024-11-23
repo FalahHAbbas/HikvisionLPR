@@ -224,34 +224,34 @@ public class RampService {
         });
     }
 
-    public void enterWaitingYard(String tripId, OnCompleteListener<Boolean> listener) {
-        var url = baseUrl + "Reservations/Gates/Enter-Waiting-Yard";
-        var requestBody = "{" +
-                          "\"tripId\":\"" + tripId + "\"," +
-                          "\"vehicleType\": 0" +
-                          "}";
-        Request request = new Request.Builder().url(url).
-                put(RequestBody.create(requestBody, MediaType.get("application/json"))).build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
-                e.printStackTrace();
-                listener.onComplete(null, new Error(e.getMessage()));
-            }
-
-            @Override
-            public void onResponse(@NotNull okhttp3.Call call, @NotNull okhttp3.Response response) throws IOException {
-                String body = response.body().string();
-                if (!response.isSuccessful()) {
-                    var error = gson.fromJson(body, Error.class);
-                    listener.onComplete(null, error);
-                }
-                listener.onComplete(true, null);
-            }
-        });
-
-
-    }
+//    public void enterWaitingYard(String tripId, OnCompleteListener<Boolean> listener) {
+//        var url = baseUrl + "Reservations/Gates/Enter-Waiting-Yard";
+//        var requestBody = "{" +
+//                          "\"tripId\":\"" + tripId + "\"," +
+//                          "\"vehicleType\": 0" +
+//                          "}";
+//        Request request = new Request.Builder().url(url).
+//                put(RequestBody.create(requestBody, MediaType.get("application/json"))).build();
+//
+//        client.newCall(request).enqueue(new Callback() {
+//            @Override
+//            public void onFailure(@NotNull okhttp3.Call call, @NotNull IOException e) {
+//                e.printStackTrace();
+//                listener.onComplete(null, new Error(e.getMessage()));
+//            }
+//
+//            @Override
+//            public void onResponse(@NotNull okhttp3.Call call, @NotNull okhttp3.Response response) throws IOException {
+//                String body = response.body().string();
+//                if (!response.isSuccessful()) {
+//                    var error = gson.fromJson(body, Error.class);
+//                    listener.onComplete(null, error);
+//                }
+//                listener.onComplete(true, null);
+//            }
+//        });
+//
+//
+//    }
 
 }
