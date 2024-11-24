@@ -29,7 +29,7 @@ public class HikvisionMain {
                 // 1. Check the event type (lCommand)
                 PlatesGetter platesGetter = new PlatesGetter(plate -> {
                     System.out.println("plate = " + plate);//todo: save to db
-//                    plate.setPlateNumber("22F48431");
+                    plate.setPlateNumber("22F48431");
                     //check if has reservation
                     rampService.checkReservation(plate.getPlateNumber(), (result, error) -> {
                         if (error != null) {
@@ -58,11 +58,11 @@ public class HikvisionMain {
                                     // Print the image
                                     PrinterJob job = PrinterJob.getPrinterJob();
                                     job.setPrintable(new ImagePrintable(image));
-                                    job.print();
-
-//                                        if (job.printDialog()) {
-//                                            job.print();
-//                                        }
+//                                    job.print();
+//
+                                        if (job.printDialog()) {
+                                            job.print();
+                                        }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
