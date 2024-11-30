@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
 
 public class RampService {
 
-    public static String baseUrl = "https://dev-api-bexy.digital-logic-gen.com/api/";
+    public static String baseUrl = "https://progress-api-bexy.digital-logic-gen.com/api/";
 
     private OkHttpClient client = new OkHttpClient();
     private Gson gson = new Gson();
 
     public void getRamps(OnListCompleteListener<Ramp> listener) {
-        Request request = new Request.Builder().url("https://dev-api-bexy.digital-logic-gen.com/api/Identity/User/Zone/Ramps?ageSize=15").build();
+        Request request = new Request.Builder().url(baseUrl + "Identity/User/Zone/Ramps?ageSize=15").build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -58,7 +58,7 @@ public class RampService {
     }
 
     public void getRamp(int id, OnCompleteListener<RampDetails> listener) {
-        Request request = new Request.Builder().url("https://dev-api-bexy.digital-logic-gen.com/api/Operations/Operations/active/" + id).build();
+        Request request = new Request.Builder().url(baseUrl + "/Operations/Operations/active/" + id).build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override

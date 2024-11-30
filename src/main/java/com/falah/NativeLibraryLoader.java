@@ -10,7 +10,7 @@ import java.io.InputStream;
 public class NativeLibraryLoader {
 
 
-    public static HCNetSDK loadLibrary(String libraryName) {
+    public static Object loadLibrary(String libraryName) {
         try {
             InputStream in = NativeLibraryLoader.class.getResourceAsStream("/lib/" + libraryName + ".so"); // Adjust path if needed
             File tempFile = File.createTempFile(libraryName, ".so");
@@ -26,7 +26,7 @@ public class NativeLibraryLoader {
             out.close();
 
 //            System.load(tempFile.getAbsolutePath());
-            return (HCNetSDK) Native.loadLibrary(tempFile.getAbsolutePath(), HCNetSDK.class);
+            return Native.loadLibrary(tempFile.getAbsolutePath(), HCNetSDK.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

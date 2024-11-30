@@ -13,7 +13,7 @@ public class HikvisionEventHandler {
     public static void main(String[] args) {
         try {
             // Load and initialize the Hikvision device
-            HikDevice device = new HikDevice(NativeLibraryLoader.loadLibrary("libhcnetsdk"), "192.168.1.64", 8000, "admin", "Admin@123");
+            HikDevice device = new HikDevice((HCNetSDK)NativeLibraryLoader.loadLibrary("libhcnetsdk"), "192.168.1.64", 8000, "admin", "Admin@123");
             var init = device.init();
             
             if (init.getData() instanceof Token token && Objects.equals(token.getDeviceSerialNumber(), "")) {
