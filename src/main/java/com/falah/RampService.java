@@ -145,10 +145,20 @@ public class RampService {
                 List<TruckTrip> items = page.getItems();
 
 
-                if (page.getRowCount() > 0)
+                if (page.getRowCount() > 0 && items.get(0).getStatus() == 0) {
                     listener.onComplete(items.get(0).getId(), null);
-                else
-                    listener.onComplete(null, new Error());
+                } else {
+                    var error = new Error();
+                    if (page.getRowCount() > 0 && (items.get(0).getStatus() != 2 && items.get(0).getStatus() != 3)) {
+                        error.setDetail("This truck is already in the process");
+                        error.setStatus(400);
+                    } else {
+                        error.setDetail("This truck is not reserved");
+                        error.setStatus(200);
+                    }
+                    listener.onComplete(null, error);
+
+                }
 
             }
         });

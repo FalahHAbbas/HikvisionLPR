@@ -13,7 +13,7 @@ public class PrintingService {
             BufferedImage image = ImageIO.read(url);
             File outputfile = new File("image.png");
             ImageIO.write(image, "png", outputfile);
-            Runtime.getRuntime().exec("lp -o  scaling=42 " + outputfile.getAbsolutePath());
+            Runtime.getRuntime().exec("lp " + outputfile.getAbsolutePath());
 //            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();

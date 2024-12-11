@@ -33,24 +33,28 @@ public class HikvisionMain {
                     //check if has reservation
                     rampService.checkReservation(plate.getPlateNumber(), (result, error) -> {
                         if (error != null) {
-                            System.out.println("error = " + error);
-                            rampService.reserve(plate.getPlateNumber(), (result1, error1) -> {
-                                if (error1 == null) {
-                                    System.out.println("error1 = " + error1);
-                                    rampService.enterBexy(result1, (result2, error2) -> {
-                                        System.out.println("result2 = " + result2);
-                                        System.out.println("result1 = " + result2);
-                                        var url = RampService.baseUrl + "Reservations/QrCode/Truck/" + result1;
-                                        printingService.initPrinter(url);
+                            System.out.println("error = " + error.getDetail());
+                            if (error.getStatus() == 200) {
+                                rampService.reserve(plate.getPlateNumber(), (result1, error1) -> {
+                                    if (error1 == null) {
+                                        System.out.println("error1 = " + error1.getDetail());
+                                        rampService.enterBexy(result1, (result2, error2) -> {
+                                            System.out.println("result2 = " + result2);
+                                            System.out.println("result1 = " + result2);
+                                            var url = RampService.baseUrl + "Reservations/QrCode/Truck/" + result1;
+                                            printingService.initPrinter(url);
 
 //                                        rampService.enterWaitingYard(result1, (result3, error3) -> {
 //                                            System.out.println("result3 = " + result3);
 //                                        });
-                                    });
-                                } else {
-                                    System.out.println("error = " + error1);
-                                }
-                            });
+                                        });
+                                    } else {
+                                        System.out.println("error = " + error1.getDetail());
+                                    }
+                                });
+                            } else {
+                                System.out.println("error = " + error.getDetail());
+                            }
                         } else {
                             System.out.println("result = " + result);
                             rampService.enterBexy(result, (result1, error1) -> {

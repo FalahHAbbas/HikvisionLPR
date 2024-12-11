@@ -57,8 +57,13 @@ public class HikvisionXMLParser {
 
                 plates.add(plate);
             }
-            System.out.println(plates.getLast());
-            return plates.getLast();
+            if (!plates.isEmpty()) {
+                System.out.println(plates.getLast());
+                return plates.getLast();
+            }
+            var plate = new Plate();
+            plate.setPlateNumber("22F48431");
+            return plate;
 
         } catch (Exception e) {
             e.printStackTrace();
