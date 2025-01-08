@@ -37,7 +37,6 @@ public class HikvisionMain {
                             if (error.getStatus() == 200) {
                                 rampService.reserve(plate.getPlateNumber(), (result1, error1) -> {
                                     if (error1 == null) {
-                                        System.out.println("error1 = " + error1.getDetail());
                                         rampService.enterBexy(result1, (result2, error2) -> {
                                             System.out.println("result2 = " + result2);
                                             System.out.println("result1 = " + result2);
@@ -54,6 +53,9 @@ public class HikvisionMain {
                                 });
                             } else {
                                 System.out.println("error = " + error.getDetail());
+                                printingService.initPrinter("https://1atapes.eu/images/product_images/info_images/SV/SV06%20(1).jpg",
+                                                            error.getDetail());
+
                             }
                         } else {
                             System.out.println("result = " + result);

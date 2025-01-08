@@ -117,8 +117,7 @@ public class RampService {
     public void checkReservation(String plateNumber, OnCompleteListener<String> listener) {
         var url = baseUrl + "Reservations/TruckTrips?PlateNumber=" + plateNumber;
 
-        Request request = new Request.Builder().url(url).
-                get().build();
+        Request request = new Request.Builder().url(url).get().build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -150,7 +149,7 @@ public class RampService {
                 } else {
                     var error = new Error();
                     if (page.getRowCount() > 0 && (items.get(0).getStatus() != 2 && items.get(0).getStatus() != 3)) {
-                        error.setDetail("This truck is already in the process");
+                        error.setDetail("هذه الشاحنة لا تزال قيد المعالجة");
                         error.setStatus(400);
                     } else {
                         error.setDetail("This truck is not reserved");
@@ -168,11 +167,7 @@ public class RampService {
     public void reserve(String plateNumber, OnCompleteListener<String> listener) {
         var url = baseUrl + "Reservations/TruckTrips/Reserve";
 
-        Request request = new Request.Builder().url(url).
-                post(RequestBody.create(
-                        "{\"plateNumber\":\"" + plateNumber + "\"}",
-                        MediaType.get("application/json")
-                )).build();
+        Request request = new Request.Builder().url(url).post(RequestBody.create("{\"plateNumber\":\"" + plateNumber + "\"}", MediaType.get("application/json"))).build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -202,18 +197,9 @@ public class RampService {
     public void enterBexy(String tripId, OnCompleteListener<Boolean> listener) {
         var url = baseUrl + "Reservations/Gates/Enter-Bexy";
 
-        var requestBody = "{" +
-                          "\"tripId\":\"" + tripId + "\"," +
-                          "\"vehicleType\": 0" +
-                          "}";
+        var requestBody = "{" + "\"tripId\":\"" + tripId + "\"," + "\"vehicleType\": 0" + "}";
 
-        Request request = new Request.Builder()
-                .url(url).
-                put(RequestBody.create(
-                        requestBody,
-                        MediaType.get("application/json")
-                ))
-                .build();
+        Request request = new Request.Builder().url(url).put(RequestBody.create(requestBody, MediaType.get("application/json"))).build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
