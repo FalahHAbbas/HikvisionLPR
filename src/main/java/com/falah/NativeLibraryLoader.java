@@ -4,6 +4,7 @@ import com.github.lkqm.hcnet.HCNetSDK;
 import com.sun.jna.Native;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
@@ -12,6 +13,8 @@ public class NativeLibraryLoader {
 
     public static Object loadLibrary(String libraryName) {
         try {
+            var os= System.getProperty("os.name").toLowerCase();
+
             InputStream in = NativeLibraryLoader.class.getResourceAsStream("/lib/" + libraryName + ".so"); // Adjust path if needed
             File tempFile = File.createTempFile(libraryName, ".so");
             tempFile.deleteOnExit();
@@ -26,6 +29,9 @@ public class NativeLibraryLoader {
             out.close();
 
 //            System.load(tempFile.getAbsolutePath());
+            if (os.contains("win")) {
+                return Native.loadLibrary("C:\\lib\\HCNetSDK.dll", HCNetSDK.class);
+            }
             return Native.loadLibrary(tempFile.getAbsolutePath(), HCNetSDK.class);
         } catch (Exception e) {
             e.printStackTrace();
