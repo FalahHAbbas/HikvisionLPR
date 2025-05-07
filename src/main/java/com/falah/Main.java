@@ -10,11 +10,6 @@ public class Main {
         Thread thread = new Thread(hikvision);
         thread.start();
 
-        String cameraIp2 = "192.168.0.65";
-        String printerIp2 = "192.168.0.201";
-        Hikvision hikvision2 = new Hikvision(cameraIp2, printerIp2);
-        Thread thread2 = new Thread(hikvision2);
-        thread2.start();
 
 
     }
