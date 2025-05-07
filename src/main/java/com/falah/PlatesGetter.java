@@ -15,7 +15,7 @@ public class PlatesGetter {
         this.listener = listener;
         System.setProperty("http.auth.digest.reEnabledAlgorithms", "MD5");
         try {
-            String url = "http://192.168.1.64/ISAPI/Traffic/channels/1/vehicleDetect/plates";
+            String url = "http://" + Utils.IP + "/ISAPI/Traffic/channels/1/vehicleDetect/plates";
             String data = "<AfterTime><picTime>0</picTime></AfterTime>";
 
             // Set up digest authentication
